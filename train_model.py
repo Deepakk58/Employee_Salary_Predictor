@@ -3,6 +3,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import LabelEncoder
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import confusion_matrix, accuracy_score, f1_score
 import joblib
 
 # 1. Load the dataset
@@ -41,3 +42,12 @@ model.fit(X_train, y_train, sample_weight=w_train)
 # 9. Save the model and encoders
 joblib.dump(model, "predictor/ml/model.pkl")
 joblib.dump(encoders, "predictor/ml/encoders.pkl")
+
+# 🔍 10. Evaluate the model
+y_pred = model.predict(X_test)
+
+print("\nModel trained and saved successfully.")
+print("Evaluation Metrics:")
+print(f"Confusion Matrix:\n{confusion_matrix(y_test, y_pred)}")
+print(f"Accuracy Score: {accuracy_score(y_test, y_pred):.4f}")
+print(f"F1 Score: {f1_score(y_test, y_pred):.4f}")
